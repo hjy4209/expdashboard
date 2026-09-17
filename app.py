@@ -95,7 +95,7 @@ if filtered.empty:
     st.warning('조건에 맞는 데이터가 없습니다.')
 else:
 
-    monthly_sales = filtered.groupby('month')['sales']
+    monthly_sales = filtered.groupby('month')['sales'].sum().reset_index()
 
     left, right = st.columns([2,1])
     with left:
@@ -105,11 +105,20 @@ else:
                       x='month',
                       y='sales',)
 
-
     with right:
         st.subheader('조회 데이터')
 
-        st.dataframe(filtered,
-                     hide_index=True,
-                     column_config=
-                     {'quantity': st.column_config.NumberColumn()
+        st.dataframe(
+            filtered,
+            hide_index=True,
+            column_config={
+                'quantity': st.column_config.NumberColumn(
+                    '판매량',
+                    format='%d개'
+                ),
+                'sales': st.column_config.NumberColumn(
+                    '매출',
+                    format='%d원'
+                )
+            }
+        )
