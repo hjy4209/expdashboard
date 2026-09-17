@@ -107,4 +107,9 @@ else:
 
 
     with right:
-        st.subheader('월별판매량')
+        st.subheader('조회 데이터')
+
+        st.dataframe(filtered,
+                     hide_index=True,
+                     column_config=
+                     {'quantity': st.column_config.NumberColumn()
